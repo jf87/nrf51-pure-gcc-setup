@@ -94,9 +94,17 @@ all: $(OBJS) $(OBJS_AS) $(HEX)
 rebuild: clean all
 
 ifeq ($(OS),Windows_NT)
+$(info OS is $(OS))
 include $(TEMPLATE_PATH)Makefile.windows
 else
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+$(info OS is $(OS))
+include $(TEMPLATE_PATH)Makefile.osx
+else
+$(info OS is *nix)
 include $(TEMPLATE_PATH)Makefile.posix
+endif
 endif
 
 $(HEX): $(OBJS) $(OBJS_AS)
