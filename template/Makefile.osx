@@ -1,6 +1,6 @@
 # Set toolchain path if arm-none-eabi- binaries are not in user path
 # TOOLCHAIN_PATH ?= 
-TERMINAL ?= ./iTermExecute.sh
+TERMINAL ?= iTermExecute.sh
 
 FLASH_START_ADDRESS = $(shell $(OBJDUMP) -h $(ELF) -j .text | grep .text | awk '{print $$4}')
 
