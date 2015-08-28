@@ -46,6 +46,11 @@ ifdef USE_BLE
     CFLAGS += -DBLE_STACK_SUPPORT_REQD
 endif
 
+ifdef USE_DFU
+    LIBRARY_PATHS += $(SDK_INCLUDE_PATH)bootloader_dfu/
+    #LIBRARY_PATHS += $(SDK_INCLUDE_PATH)serialization/connectivity/
+endif
+
 ifdef USE_ANT
     CFLAGS += -DANT_STACK_SUPPORT_REQD
 endif
@@ -90,6 +95,9 @@ OBJS_AS = $(addprefix $(OUTPUT_PATH), $(SRCS_AS:.s=.os))
 JLINK_OPTIONS = -device nrf51822 -if swd -speed 1000
 
 all: $(OBJS) $(OBJS_AS) $(HEX)
+
+debug: CFLAGS += -g
+debug: $(OBJS) $(OBJS_AS) $(HEX)
 
 rebuild: clean all
 
